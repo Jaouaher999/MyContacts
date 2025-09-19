@@ -1,22 +1,29 @@
 const express = require('express');
-const { register, login, profile } = require('../controllers/userController');
-const {requireAuth} = require('../middleware/authMiddleware');
+const { register, login, profile } = require('../controllers/authController');
+const {authJwt} = require('../middlewares/authMiddleware');
+const { runValidation, registerValidator, loginValidator } = require('../middlewares/validateMiddleware')
 
 const router = express.Router();
+
+router.post('/register', registerValidator, runValidation, register);
+router.post('/login', loginValidator, runValidation, login);
+router.get('/profile', authJwt, profile);
+
+module.exports = router;
 
 /**
  * @swagger
  * tags:
- *   name: Users
+ *   name: Authentication
  *   description: User authentication
  */
 
 /**
  * @swagger
- * /users/register:
+ * /auth/register:
  *   post:
  *     summary: Register a new user
- *     tags: [Users]
+ *     tags: [Authentication]
  *     requestBody:
  *       required: true
  *       content:
@@ -41,14 +48,13 @@ const router = express.Router();
  *       409:
  *         description: Email already used
  */
-router.post('/register', register);
 
 /**
  * @swagger
- * /users/login:
+ * /auth/login:
  *   post:
  *     summary: Login user
- *     tags: [Users]
+ *     tags: [Authentication]
  *     requestBody:
  *       required: true
  *       content:
@@ -71,14 +77,13 @@ router.post('/register', register);
  *       401:
  *         description: Invalid email or password
  */
-router.post('/login', login);
 
 /**
  * @swagger
- * /users/profile:
+ * /auth/profile:
  *   get:
  *     summary: Get current user
- *     tags: [Users]
+ *     tags: [Authentication]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -89,6 +94,3 @@ router.post('/login', login);
  *       404:
  *         description: User not found
  */
-router.get('/profile', requireAuth, profile);
-
-module.exports = router;
