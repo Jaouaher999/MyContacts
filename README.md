@@ -28,6 +28,8 @@ PORT=5000
 MONGO_URI=mongodb://localhost:27017/mycontacts
 JWT_SECRET=replace-with-a-strong-secret
 FRONTEND=http://localhost:3000
+# Optional: set the public base URL when deployed (used in Swagger UI "Servers")
+RENDER_EXTERNAL_URL=https://your-api.onrender.com
 ```
 
 ### Install & run
@@ -48,6 +50,7 @@ Server starts on `http://localhost:5000` and serves API under `http://localhost:
 ### API Docs (Swagger)
 
 - UI: `http://localhost:5000/api/docs`
+- When deployed, Swagger uses `RENDER_EXTERNAL_URL` (if set) as the server URL.
 
 ### Response envelope
 
@@ -61,6 +64,15 @@ All controllers return a consistent envelope:
 ```
 
 Errors also use the same shape with a descriptive `message` and `data: null`.
+
+Error handler returns:
+
+```json
+{
+  "message": "error description",
+  "stack": "stack trace (omitted in production)"
+}
+```
 
 ### Authentication
 
@@ -101,6 +113,7 @@ Errors also use the same shape with a descriptive `message` and `data: null`.
 ### Validation & Errors
 
 - Uses `express-validator`; common error statuses: 400 (validation), 401 (unauthorized), 404 (not found), 409 (conflict).
+- Global error handler sets `message` and includes `stack` only when `NODE_ENV !== 'production'`.
 
 ### Testing (Jest)
 
@@ -154,6 +167,24 @@ If you need to configure the backend base URL for the frontend, create `mycontac
 ```
 REACT_APP_API_BASE_URL=http://localhost:5000/api
 ```
+
+### Routing & protection
+
+- Uses `react-router-dom`; private pages are wrapped with `ProtectedRoute` which checks for `token` in `localStorage` and redirects to `/login` if missing.
+
+### Deployment
+
+- Netlify (frontend): SPA redirect configured via `mycontacts-frontend/netlify.toml`:
+
+```toml
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
+
+- Render/Any host (backend): set `RENDER_EXTERNAL_URL` to your public API URL so Swagger "Servers" shows the correct base.
+- CORS: set `FRONTEND` in backend `.env` (e.g., `https://your-frontend.netlify.app`) so the API allows requests from your deployed frontend.
 
 ---
 
