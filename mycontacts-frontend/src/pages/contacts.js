@@ -47,7 +47,7 @@ function Contacts() {
     };
 
     fetchContacts();
-  }, [navigate]);
+  }, [navigate, API_BASE]);
 
   const handleDelete = async (id) => {
     const token = localStorage.getItem("token");

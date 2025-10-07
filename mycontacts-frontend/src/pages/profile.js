@@ -37,7 +37,7 @@ function Profile() {
     };
 
     fetchProfile();
-  }, [navigate]);
+  }, [navigate, API_BASE]);
   
   if (error) {
     return (
