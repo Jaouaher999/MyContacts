@@ -5,9 +5,9 @@ const { runValidation, registerValidator, loginValidator } = require('../middlew
 
 const router = express.Router();
 
-router.post('/register', registerValidator, runValidation, register);
-router.post('/login', loginValidator, runValidation, login);
-router.get('/profile', authJwt, profile);
+router.post("/register", registerValidator, runValidation, register);
+router.post("/login", loginValidator, runValidation, login);
+router.get("/profile", authJwt, profile);
 
 module.exports = router;
 
@@ -43,10 +43,22 @@ module.exports = router;
  *     responses:
  *       201:
  *         description: User registered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiResponseUser'
  *       400:
  *         description: Please provide email and password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *       409:
  *         description: Email already used
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  */
 
 /**
@@ -74,8 +86,16 @@ module.exports = router;
  *     responses:
  *       200:
  *         description: login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiResponseLogin'
  *       401:
- *         description: Invalid email or password
+ *         description: Invalid credentials
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  */
 
 /**
@@ -89,8 +109,25 @@ module.exports = router;
  *     responses:
  *       200:
  *         description: Returns user data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                 email:
+ *                   type: string
  *       401:
  *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *       404:
  *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  */

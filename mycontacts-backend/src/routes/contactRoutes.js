@@ -7,12 +7,12 @@ const router = express.Router();
 
 router.use(authJwt);
 
-router.post('/', createContactValidator, runValidation, createContact);
-router.get('/', getContacts);
+router.post("/", createContactValidator, runValidation, createContact);
+router.get("/", getContacts);
 
-router.get('/:id', getContactById);
-router.patch('/:id', updateContactValidator, runValidation, updateContact);
-router.delete('/:id', deleteContact);
+router.get("/:id", getContactById);
+router.patch("/:id", updateContactValidator, runValidation, updateContact);
+router.delete("/:id", deleteContact);
 
 module.exports = router;
 
@@ -52,12 +52,28 @@ module.exports = router;
  *     responses:
  *       201:
  *         description: Contact created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiResponseContact'
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *       401:
  *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *       409:
  *         description: Phone number already used
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *
  *   get:
  *     summary: Get all contacts of logged-in user
@@ -67,8 +83,16 @@ module.exports = router;
  *     responses:
  *       200:
  *         description: List of contacts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiResponseContacts'
  *       401:
  *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  */
 
 /**
@@ -89,10 +113,22 @@ module.exports = router;
  *     responses:
  *       200:
  *         description: Contact found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiResponseContact'
  *       401:
  *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *       404:
  *         description: Contact not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *
  *   patch:
  *     summary: Update a contact
@@ -125,12 +161,28 @@ module.exports = router;
  *     responses:
  *       200:
  *         description: Contact updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiResponseContact'
  *       400:
  *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *       401:
  *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *       404:
  *         description: Contact not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *
  *   delete:
  *     summary: Delete a contact
@@ -149,6 +201,14 @@ module.exports = router;
  *         description: Contact deleted
  *       401:
  *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  *       404:
  *         description: Contact not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ApiError'
  */
