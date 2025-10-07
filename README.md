@@ -80,6 +80,7 @@ Errors also use the same shape with a descriptive `message` and `data: null`.
     - 200 OK → `{ _id, email }`
 
 - Contacts (all require auth)
+
   - POST `/api/contacts`
     - body: `{ firstName?: string, lastName?: string, phone: string }`
     - 201 Created → `{ _id, firstName, lastName, phone }`
@@ -92,6 +93,10 @@ Errors also use the same shape with a descriptive `message` and `data: null`.
     - 200 OK → updated contact
   - DELETE `/api/contacts/{id}`
     - 204 No Content
+
+- System
+  - GET `/api/health`
+    - 200 OK → `{ message, data: { status, uptime, timestamp } }`
 
 ### Validation & Errors
 
