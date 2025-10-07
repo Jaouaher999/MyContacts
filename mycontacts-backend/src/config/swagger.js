@@ -9,9 +9,7 @@ const options = {
       description: "API documentation for MyContacts app",
     },
     servers: [
-      {
-        url: "http://localhost:5000/api",
-      },
+      { url: process.env.RENDER_EXTERNAL_URL || "http://localhost:5000/api" }
     ],
     components: {
       securitySchemes: {
@@ -22,7 +20,6 @@ const options = {
         },
       },
       schemas: {
-        // Generic response wrapper used by controllers via apiResponse
         ApiResponseUser: {
           type: "object",
           properties: {
