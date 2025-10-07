@@ -9,7 +9,7 @@ const options = {
       description: "API documentation for MyContacts app",
     },
     servers: [
-      { url: process.env.RENDER_EXTERNAL_URL || "http://localhost:5000/api" }
+      { url: process.env.RENDER_EXTERNAL_URL || "http://localhost:5000" }
     ],
     components: {
       securitySchemes: {

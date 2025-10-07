@@ -25,7 +25,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /contacts:
+ * /api/contacts:
  *   post:
  *     summary: Create a new contact
  *     tags: [Contacts]
@@ -97,7 +97,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /contacts/{id}:
+ * /api/contacts/{id}:
  *   get:
  *     summary: Get a single contact by ID
  *     tags: [Contacts]
