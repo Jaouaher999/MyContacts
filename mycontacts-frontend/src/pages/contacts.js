@@ -37,7 +37,7 @@ function Contacts() {
         });
         const result = await res.json();
         if (!res.ok) {
-          throw new Error(result?.message || "Failed to fetch contacts");
+          throw new Error(result?.errors?.[0].message || result?.message || "Failed to fetch contacts");
         }
         const list = Array.isArray(result?.data) ? result.data : [];
         setContacts(list);
@@ -99,7 +99,7 @@ function Contacts() {
       });
       const result = await res.json();
       if (!res.ok)
-        throw new Error(result?.message || "Failed to create contact");
+        throw new Error(result?.errors?.[0].message || result?.message || "Failed to create contact");
 
       setContacts((prev) => [result.data, ...prev]);
       setShowCreateModal(false);
@@ -144,7 +144,7 @@ function Contacts() {
 
       const result = await res.json();
       if (!res.ok)
-        throw new Error(result?.message || "Failed to update contact");
+        throw new Error(result?.errors?.[0].message || result?.message || "Failed to update contact");
 
       setContacts((prev) =>
         prev.map((c) => (c._id === editingContact._id ? result.data : c))

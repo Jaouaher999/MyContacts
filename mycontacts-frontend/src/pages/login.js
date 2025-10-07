@@ -25,7 +25,7 @@ function Login() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result?.message || "Login failed");
+        throw new Error(result?.errors?.[0].message || result?.message || "Login failed");
       }
 
       const data = result?.data || {};

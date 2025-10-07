@@ -25,7 +25,7 @@ function Register() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result?.message || "Register failed");
+        throw new Error(result?.errors?.[0].message || result?.message || "Register failed");
       }
 
       const data = result?.data || {};
