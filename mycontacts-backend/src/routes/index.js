@@ -1,6 +1,7 @@
-const express = require('express');
-const authRoutes = require('./authRoutes');
-const contactRoutes = require('./contactRoutes');
+const express = require("express");
+const authRoutes = require("./authRoutes");
+const contactRoutes = require("./contactRoutes");
+const { apiResponse } = require("../utils/apiResponse");
 
 const router = express.Router();
 
