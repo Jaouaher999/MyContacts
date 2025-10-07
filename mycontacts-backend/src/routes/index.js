@@ -26,7 +26,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /health:
+ * /api/health:
  *   get:
  *     summary: Health check
  *     tags: [System]
